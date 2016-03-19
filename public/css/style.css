@@ -1,0 +1,12 @@
+.rm{
+    padding-left: 0px;
+    padding-right: 0px;
+}
+.rmL{
+    padding-left: 0px;
+    padding-right: 1px;
+}
+.rmR{
+    padding-left: 1px;
+    padding-right: 0px;
+}
