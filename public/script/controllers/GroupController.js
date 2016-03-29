@@ -8,7 +8,7 @@
       $scope.groups = [];
       $http({
           method:'get',
-          url:'http://192.168.1.24:3000/1/contact/group?group='+group,
+          url:'/1/contact/group?group='+group,
         dataType:'jsonp'
       }).success(function(data){
         console.log(data);
