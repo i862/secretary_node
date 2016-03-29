@@ -1,0 +1,19 @@
+<div class="container">
+  <div class="row">
+    <div class="list-group">
+      <!----list start---->
+      <a href="#" class="list-group-item" ng-repeat="group in groups track by $index">
+        <h4 class="list-group-item-heading">公司</h4>
+        <div class="row">
+          <div class="col-sm-6">
+            <p class="list-group-item-text text-muted">{{ group._id }}</p>
+          </div>
+          <div class="col-sm-6">
+            <p class="list-group-item-text text-muted">{{ group.count }}</p>
+          </div>
+        </div>
+      </a>
+      <!---list end----->
+    </div>
+  </div>
+</div>
