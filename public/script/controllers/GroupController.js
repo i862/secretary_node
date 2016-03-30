@@ -4,15 +4,18 @@
 (function(){
   angular.module('secApp.GroupController',[])
     .controller('GroupController',function($http,$scope,$stateParams){
-      var group = $stateParams.group;
-      $scope.groups = [];
+      $scope.group = {
+        type:$stateParams.group,
+        name:$stateParams.name,
+        list:[]
+      };
       $http({
           method:'get',
-          url:'/1/contact/group?group='+group,
+          url:'/1/contact/group?group=' + $scope.group.type,
         dataType:'jsonp'
       }).success(function(data){
         console.log(data);
-        $scope.groups = data;
+        $scope.group.list = data;
       })
         .error(function(err){
           console.log(err);

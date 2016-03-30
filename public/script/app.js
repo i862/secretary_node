@@ -1,6 +1,6 @@
 (function() {
   angular
-    .module('secApp', ['ui.router','secApp.GroupController'])
+    .module('secApp', ['ui.router','secApp.GroupController','secApp.UsersController','secApp.CssFitler'])
     .run([function(){}])
     .config(function ($provide,$httpProvider,$stateProvider, $urlRouterProvider) {
       $stateProvider
@@ -9,11 +9,12 @@
           templateUrl: "../views/home.html"
         })
         .state('users', {
-          url: "/users",
+          url: "/users/:group/:name/?value&count",
+          controller:"UsersController",
           templateUrl: "../views/users.html"
         })
         .state('groups', {
-          url: "/groups/:group",
+          url: "/groups/:group/:name",
           controller:"GroupController",
           templateUrl: "../views/groups.html"
         })

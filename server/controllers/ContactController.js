@@ -38,8 +38,11 @@ exports.listByGroup = function(req,res){
     optional:['lastMark']
   },
     function(res,data){
+      console.log(data);
       var pageSlice = httpUtil.paginationByQuery(req,{createdAt:-1});
-      ContactService.find(httpUtil.configPaginationQuery(data,pageSlice),{},pageSlice)
+      var conditions = {};
+      conditions[data.group] = data.groupValue;
+      ContactService.find(httpUtil.configPaginationQuery(conditions,pageSlice),{},pageSlice)
         .then(function(list){
         return httpUtil.OK(res,list);
       },function(err){

@@ -1,19 +1,29 @@
 <div class="container">
   <div class="row">
-    <div class="list-group">
-      <!----list start---->
-      <a href="#" class="list-group-item" ng-repeat="group in groups track by $index">
-        <h4 class="list-group-item-heading">公司</h4>
-        <div class="row">
-          <div class="col-sm-6">
-            <p class="list-group-item-text text-muted">{{ group._id }}</p>
+
+    <!---list start--->
+    <div class="list list-condensed">
+      <header>
+        <div class="pull-right">
+          <a class="btn btn-info btn-sm " href="#" type="button">上一级</a>
+        </div>
+        <h3>&nbsp;
+          {{ group.name }}
+        </h3>
+      </header>
+      <section class="items items-hover">
+        <div class="item" ng-repeat="g in group.list track by $index">
+          <div class="item-heading">
+            <div class="pull-right">
+              <p class="list-group-item-text text-muted">共{{ g.count||1 }}条记录</p>
+            </div>
+            <h4 <a href="###">{{ g._id }}</a></h4>
           </div>
-          <div class="col-sm-6">
-            <p class="list-group-item-text text-muted">{{ group.count }}</p>
+          <div class="item-footer">
+            <a href="#/users/{{group.type}}/{{ group.name }}/?value={{ g._id }}&count={{ g.count }}" class="text-muted"><i class="icon-list-ul"></i> 详细信息</a>&nbsp;
           </div>
         </div>
-      </a>
-      <!---list end----->
+      </section>
     </div>
   </div>
 </div>

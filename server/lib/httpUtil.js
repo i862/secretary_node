@@ -115,7 +115,7 @@ exports.OUT_ERR =function(res,err){
  * @param contentType
  */
 var _commonReponse = function(res,status,data,contentType){
-  contentType = contentType||'application/json',
+  contentType = contentType||'application/json;charset=UTF-8',
     data = data||{};
   res.status(status)
     .set('Content-Type',contentType)
