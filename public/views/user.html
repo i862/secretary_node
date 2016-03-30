@@ -1,106 +1,49 @@
 <div class="container">
   <div class="row">
-    <div class="list-group">
-      <!----list start---->
-      <a href="#" class="list-group-item">
-        <h4 class="list-group-item-heading">李璐希</h4>
-        <div class="row">
-          <div class="col-sm-6">
-            <p class="list-group-item-text text-muted">13793119180</p>
-          </div>
-          <div class="col-sm-6">
-            <p class="list-group-item-text text-muted">中国移动</p>
-          </div>
+    <div class="panel-group">
+      <div class="panel">
+        <div class="panel-heading">
+          <h4>{{ current.name }}</h4>&nbsp;
+          <small>{{ current.company }}-{{ current.rank }}</small>
+          <!--go back-->
+          <!--<div class="pull-right">-->
+            <!--<a class="btn btn-info btn-sm " href="#/users/{{ history.group.title }}/{{ history.group.count }}" type="button">上一级</a>-->
+          <!--</div>-->
+          <!--go back-->
+
         </div>
-        <div class="row">
-          <div class="col-sm-12">
-            <p class="list-group-item-text text-muted">
-              亲亲阿门
-            </p>
-          </div>
+        <div class="panel-body">
+          <!---行业--->
+          <h5 class="header-dividing">联系方式</h5>
+          <p><i class="icon icon-phone"></i>&nbsp;&nbsp; {{ current.phoneNum }}</p>
+          <p><i class="icon icon-envelope"></i>&nbsp;&nbsp; {{ current.email }}</p>
+
+          <!---行业--->
+          <h5 class="header-dividing">行业</h5>
+          <span ng-repeat="industry in current.industry track by $index"><span class="label {{ $index|labelClass }}">
+            {{ industry }}
+          </span>&nbsp;</span>
+
+          <!---擅长领域--->
+          <h5 class="header-dividing">擅长领域</h5>
+          <span ng-repeat="skilledAt in current.skilledAt track by $index"><span class="label {{ $index|labelClass }}">
+            {{ skilledAt }}
+          </span>&nbsp;</span>
+
+          <!---案例--->
+          <h5 class="header-dividing">案例</h5>
+          <span ng-repeat="case in current.case track by $index"><span class="label {{ $index|labelClass }}">
+            {{ case }}
+          </span>&nbsp;</span>
+
+          <!---资质--->
+          <h5 class="header-dividing">资质</h5>
+          <span ng-repeat="qualifications in current.qualifications track by $index"><span class="label {{ $index|labelClass }}">
+            {{ qualifications }}
+          </span>&nbsp;</span>
+
         </div>
-      </a>
-      <!---list end----->
-      <!----list start---->
-      <a href="#" class="list-group-item">
-        <h4 class="list-group-item-heading">李璐希</h4>
-        <div class="row">
-          <div class="col-sm-6">
-            <p class="list-group-item-text text-muted">13793119180</p>
-          </div>
-          <div class="col-sm-6">
-            <p class="list-group-item-text text-muted">中国移动</p>
-          </div>
-        </div>
-        <div class="row">
-          <div class="col-sm-12">
-            <p class="list-group-item-text text-muted">
-              亲亲阿门
-            </p>
-          </div>
-        </div>
-      </a>
-      <!---list end----->
-      <!----list start---->
-      <a href="#" class="list-group-item">
-        <h4 class="list-group-item-heading">李璐希</h4>
-        <div class="row">
-          <div class="col-sm-6">
-            <p class="list-group-item-text text-muted">13793119180</p>
-          </div>
-          <div class="col-sm-6">
-            <p class="list-group-item-text text-muted">中国移动</p>
-          </div>
-        </div>
-        <div class="row">
-          <div class="col-sm-12">
-            <p class="list-group-item-text text-muted">
-              亲亲阿门
-            </p>
-          </div>
-        </div>
-      </a>
-      <!---list end----->
-      <!----list start---->
-      <a href="#" class="list-group-item">
-        <h4 class="list-group-item-heading">李璐希</h4>
-        <div class="row">
-          <div class="col-sm-6">
-            <p class="list-group-item-text text-muted">13793119180</p>
-          </div>
-          <div class="col-sm-6">
-            <p class="list-group-item-text text-muted">中国移动</p>
-          </div>
-        </div>
-        <div class="row">
-          <div class="col-sm-12">
-            <p class="list-group-item-text text-muted">
-              亲亲阿门
-            </p>
-          </div>
-        </div>
-      </a>
-      <!---list end----->
-      <!----list start---->
-      <a href="#" class="list-group-item">
-        <h4 class="list-group-item-heading">李璐希</h4>
-        <div class="row">
-          <div class="col-sm-6">
-            <p class="list-group-item-text text-muted">13793119180</p>
-          </div>
-          <div class="col-sm-6">
-            <p class="list-group-item-text text-muted">中国移动</p>
-          </div>
-        </div>
-        <div class="row">
-          <div class="col-sm-12">
-            <p class="list-group-item-text text-muted">
-              亲亲阿门
-            </p>
-          </div>
-        </div>
-      </a>
-      <!---list end----->
+      </div>
     </div>
   </div>
 </div>

@@ -4,15 +4,17 @@
     <!---list start--->
     <div class="list list-condensed">
       <header>
-        <div class="pull-right">
-          <a class="btn btn-info btn-sm " href="#" type="button">上一级</a>
-        </div>
+        <!--go back-->
+        <!--<div class="pull-right">-->
+          <!--<a class="btn btn-info btn-sm " href="#" type="button">上一级</a>-->
+        <!--</div>-->
+        <!--go back-->
         <h3>&nbsp;
-          {{ group.name }}
+          {{ current.type|groupTitle }}
         </h3>
       </header>
       <section class="items items-hover">
-        <div class="item" ng-repeat="g in group.list track by $index">
+        <div class="item" ng-repeat="g in current.list track by $index">
           <div class="item-heading">
             <div class="pull-right">
               <p class="list-group-item-text text-muted">共{{ g.count||1 }}条记录</p>
@@ -20,7 +22,7 @@
             <h4 <a href="###">{{ g._id }}</a></h4>
           </div>
           <div class="item-footer">
-            <a href="#/users/{{group.type}}/{{ group.name }}/?value={{ g._id }}&count={{ g.count }}" class="text-muted"><i class="icon-list-ul"></i> 详细信息</a>&nbsp;
+            <a href="#/users/{{ g._id }}/{{ g.count }}" class="text-muted"><i class="icon-list-ul"></i> 联系人列表</a>&nbsp;
           </div>
         </div>
       </section>

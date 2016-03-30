@@ -3,19 +3,22 @@
  */
 (function(){
   angular.module('secApp.GroupController',[])
-    .controller('GroupController',function($http,$scope,$stateParams){
-      $scope.group = {
-        type:$stateParams.group,
-        name:$stateParams.name,
+    .controller('GroupController',function($http,$scope,$stateParams,$rootScope){
+      $scope.current = {
+        type:$stateParams.current,
         list:[]
+      };
+      $rootScope.current = {
+        group:{
+          type:$stateParams.current
+        }
       };
       $http({
           method:'get',
-          url:'/1/contact/group?group=' + $scope.group.type,
-        dataType:'jsonp'
+          url:'/1/contact/group?group=' + $scope.current.type
       }).success(function(data){
         console.log(data);
-        $scope.group.list = data;
+        $scope.current.list = data;
       })
         .error(function(err){
           console.log(err);

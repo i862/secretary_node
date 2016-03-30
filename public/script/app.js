@@ -1,6 +1,6 @@
 (function() {
   angular
-    .module('secApp', ['ui.router','secApp.GroupController','secApp.UsersController','secApp.CssFitler'])
+    .module('secApp', ['ui.router','secApp.GroupController','secApp.UsersController','secApp.UserController','secApp.CssFitler','secApp.BaseInfoFitler'])
     .run([function(){}])
     .config(function ($provide,$httpProvider,$stateProvider, $urlRouterProvider) {
       $stateProvider
@@ -9,14 +9,19 @@
           templateUrl: "../views/home.html"
         })
         .state('users', {
-          url: "/users/:group/:name/?value&count",
+          url: "/users/:current/:count",
           controller:"UsersController",
           templateUrl: "../views/users.html"
         })
         .state('groups', {
-          url: "/groups/:group/:name",
+          url: "/groups/:current",
           controller:"GroupController",
           templateUrl: "../views/groups.html"
+        })
+        .state('user', {
+          url: "/user/:current",
+          controller:"UserController",
+          templateUrl: "../views/user.html"
         })
     })
 })();
