@@ -6,6 +6,6 @@
     .controller('UserController',function($http,$scope,$stateParams,$rootScope){
       $scope.current = JSON.parse($stateParams.current);
       $scope.groups = $rootScope.current;
-      console.log($scope.user);
+      //console.log($scope.user);
     });
 })();

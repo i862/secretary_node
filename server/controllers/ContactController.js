@@ -3,7 +3,7 @@
  */
 var ContactService = require('../services/ContactService'),
   httpUtil = require('../lib/httpUtil'),
-  commonUtil = require('../lib/commonUtil');
+  commonUtil = require('../lib/commonUtil').util;
 
 /**
  * 分类
@@ -11,18 +11,16 @@ var ContactService = require('../services/ContactService'),
  * @param res
  */
 exports.aggregate = function(req,res){
-  httpUtil.getRequest(req,res,
-    {
-      must:['group']
-    },
-    function(res,data){
+  httpUtil.getRequest(req,res,{must:['group']})
+    .then(function(params){
       var pageSlice = httpUtil.pagination(req,{createdAt:-1});
-       ContactService.aggregate({},data.group,pageSlice)
-        .then(function(list){
-          return httpUtil.OK(res,list);
-        },function(err){
-          return httpUtil.OUT_ERR(res,err);
-        });
+      return ContactService.aggregate({},params.group,pageSlice);
+    })
+    .then(function(data){
+      return res.apiOK(data);
+    })
+    .catch(function(err){
+      return res.apiERR(err);
     });
 };
 
@@ -36,17 +34,18 @@ exports.listByGroup = function(req,res){
   httpUtil.getRequest(req,res,{
     must:['group','groupValue'],
     optional:['lastMark']
-  },
-    function(res,data){
-      console.log(data);
-      var pageSlice = httpUtil.paginationByQuery(req,{createdAt:-1});
-      var conditions = {};
-      conditions[data.group] = data.groupValue;
-      ContactService.find(httpUtil.configPaginationQuery(conditions,pageSlice),{},pageSlice)
-        .then(function(list){
-        return httpUtil.OK(res,list);
-      },function(err){
-        return httpUtil.OUT_ERR(res,err);
-      });
+  })
+    .then(function(data){
+        console.log(data);
+        var pageSlice = httpUtil.paginationByQuery(req,{createdAt:-1});
+        var conditions = {};
+        conditions[data.group] = data.groupValue;
+        return ContactService.find(httpUtil.configPaginationQuery(conditions,pageSlice),{},pageSlice);
+      })
+    .then(function(list){
+      return res.apiOK(list);
+    })
+    .catch(function(err){
+        return res.apiERR(err);
     });
 };

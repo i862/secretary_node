@@ -1,24 +1,25 @@
 /**
  * Created by menzhongxin on 16/3/23.
  */
-var util = require('util'),
-  dateformat = require('dateformat'),
-  _ = require('underscore'),
-  err = require('../json/ErrorCode');
+var util = require('util')
+  ,dateformat = require('dateformat')
+  ,_ = require('underscore')
+  ,errors = require('../json/ErrorCode');
 
+var commonUtil  = _;
 
 /**
  * 判断的值是否存在
  * @param v
  * @returns {boolean}
  */
-exports.isExists = function(v){
+commonUtil.isExists = function(v){
   if(v === undefined || v === null || v === '')
     return false;
   return true;
 };
 
-exports.hasValue = function(v){
+commonUtil.hasValue = function(v){
   if(typeof v === 'object')
     return !_.isEmpty(v);
   else
@@ -31,7 +32,7 @@ exports.hasValue = function(v){
  * @param splice 切分依据 default: ' '
  * @returns {*}
  */
-exports.str2Array = function(val,splice){
+commonUtil.str2Array = function(val,splice){
   if(!this.isExists(val))
     return [];
   if(_.isArray(val))
@@ -46,7 +47,7 @@ exports.str2Array = function(val,splice){
  * @param format
  * @returns {*}
  */
-exports.dateFormat = function(date,format){
+commonUtil.dateFormat = function(date,format){
   if(!this.isExists(date))
     throw 'the date should not be null !';
   if(!_.isDate(date))
@@ -60,7 +61,7 @@ exports.dateFormat = function(date,format){
  * @param list
  * @returns {Array}
  */
-exports.toJSON = function(list){
+commonUtil.toJSON = function(list){
   if(!_.isArray(list))
     throw 'list should be a Array';
   var rs = [];
@@ -75,7 +76,7 @@ exports.toJSON = function(list){
  * @param list
  * @returns {Array}
  */
-exports.toObject = function(list){
+commonUtil.toObject = function(list){
   if(!_.isArray(list))
     throw 'list should be a Array';
   var rs = [];
@@ -85,9 +86,12 @@ exports.toObject = function(list){
   return rs;
 };
 
-exports.getErrByCode = function(code){
-  if(err.hasOwnProperty(code))
-    return err[code];
-  else
-    return err['00001'];
+commonUtil.getErrByCode = function(code){
+  var error = errors[code]||errors[1001]
+      ,param = arguments[1];
+  if(param){
+      error.msg = error.msg + ':' + param;
+    }
+  return error;
 };
+exports.util = commonUtil;

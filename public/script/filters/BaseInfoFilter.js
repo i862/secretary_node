@@ -3,7 +3,7 @@
  */
 
 (function(){
-  angular.module('secApp.BaseInfoFitler',[])
+  angular.module('secApp.BaseInfoFilter',[])
     .filter('groupTitle',function(){
       return function(type){
        var groups = {

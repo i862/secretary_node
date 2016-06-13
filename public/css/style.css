@@ -4,9 +4,40 @@
 }
 .rmL{
     padding-left: 0px;
-    padding-right: 1px;
+    /*padding-right: 1px;*/
 }
 .rmR{
-    padding-left: 1px;
+    /*padding-left: 1px;*/
     padding-right: 0px;
 }
+
+.form-success {
+    position: absolute;
+    right: 2px;
+    top: 6px;
+    /* text-align: center; */
+    /* border-radius: 20px; */
+    /* width: 35px; */
+    /* height: 35px; */
+    /* line-height: 25px; */
+    /* padding: 0; */
+    color: #069E0D;
+    opacity: .65;
+}
+.form-error {
+    position: absolute;
+    right: 2px;
+    top: 6px;
+    /* text-align: center; */
+    /* border-radius: 20px; */
+    /* width: 35px; */
+    /* height: 35px; */
+    /* line-height: 25px; */
+    /* padding: 0; */
+    color: #F30B0B;
+    opacity: .65;
+}
+.form-input {
+    background: none;
+}
+

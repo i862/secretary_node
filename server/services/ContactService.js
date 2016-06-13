@@ -2,7 +2,7 @@
  * Created by menzhongxin on 16/3/23.
  */
 var contact = require('../models/contact'),
-  commonUtil = require('../lib/commonUtil'),
+  commonUtil = require('../lib/commonUtil').util,
   modelUtil = require('../lib/modelUtil');
 var ContactService = function(){};
 /**

@@ -1,9 +1,8 @@
 /**
  * Created by menzhongxin on 16/3/23.
  */
-var util = require('util'),
-  commonUtil = require('./commonUtil'),
-  _ = require('underscore');
+var util = require('util')
+  ,commonUtil = require('./commonUtil').util;
 
 /**
  * 配置分页配置
@@ -58,8 +57,8 @@ exports.configPaginationQuery = function(query,pageSlice){
  * @param onSuccess
  * @param onErr
  */
-exports.getRequest = function(req,res,check,onSuccess,onErr){
- _check(res,req.query,check,onSuccess,onErr);
+exports.getRequest = function(req,res,check){
+  return _check(res,req.query,check);
 };
 /**
  * postReq
@@ -69,8 +68,8 @@ exports.getRequest = function(req,res,check,onSuccess,onErr){
  * @param onSuccess
  * @param onErr
  */
-exports.postRequest = function(req,res,check,onSuccess,onErr){
-  _check(res,req.body,check,onSuccess,onErr);
+exports.postRequest = function(req,res,check){
+  return _check(res,req.body,check);
 };
 /**
  * putReq == postReq
@@ -79,8 +78,8 @@ exports.postRequest = function(req,res,check,onSuccess,onErr){
  * @param check
  * @param onErr
  */
-exports.putRequest = function(req,res,check,onErr){
-  this.postRequest(req,res,check,onErr);
+exports.putRequest = function(req,res,check){
+  return this.postRequest(req,res,check);
 };
 
 /**
@@ -90,22 +89,39 @@ exports.putRequest = function(req,res,check,onErr){
  * @param check
  * @param onErr
  */
-exports.delRequest = function(req,res,check,onErr){
-  this.getRequest(req,res,check,onErr);
+exports.delRequest = function(req,res,check){
+  return this.getRequest(req,res,check);
 };
 
 /**
- * OK
+ * api统一返回
+ * @param req
  * @param res
- * @param data
- * @constructor
+ * @param next
  */
-exports.OK = function(res,data){
-  return _commonReponse(res,200,data);
+exports.extendApiResponse = function(req,res,next){
+  res.set('Content-Type','application/json;charset=UTF-8');
+
+  res.apiOK = function(data){
+    res
+      .status(200)
+      .json(data);
+  };
+  res.apiERR = function(err){
+    if(!err || !err.code)
+      error = commonUtil.getErrByCode(1003,err.message);
+    else
+      error = err;
+    res
+      .status(500)
+      .json(error);
+  };
+  next();
 };
 
-exports.OUT_ERR =function(res,err){
-  return _commonReponse(res,500,err);
+exports.errorhandle = function(err,req,res,next){
+  if(typeof res.apiERR === 'function')
+    return res.apiERR(err);
 };
 /**
  * commonResponse
@@ -114,28 +130,16 @@ exports.OUT_ERR =function(res,err){
  * @param data
  * @param contentType
  */
-var _commonReponse = function(res,status,data,contentType){
-  contentType = contentType||'application/json;charset=UTF-8',
-    data = data||{};
-  res.status(status)
-    .set('Content-Type',contentType)
-    .set('Access-Control-Allow-Origin','*')
-    .json(data);
-};
-var _check = function(res,data,check,onSuccess,onErr){
+var _check = function(res,data,check){
   var must = check.must||[],
-    optional = check.optional||[],
-    onErr = onErr || _defFieldMissErr;
+    optional = check.optional||[];
   for(var i in must){
     if(!commonUtil.hasValue(data[must[i]])){
-      return onErr(res,commonUtil.getErrByCode('00002'),must[i]);
+      return Promise.reject(commonUtil.getErrByCode(1002,must[i]));
     }
   }
-  var fields = _.union(must,optional);
-   return onSuccess(res,_.pick(data,fields));
+  var fields = commonUtil.union(must,optional);
+   return Promise.resolve(commonUtil.pick(data,fields));
 };
 
-var _defFieldMissErr = function(res,err,field){
-  err.msg = field + err.msg;
-  return _commonReponse(res,err.httpCode,err);
-};
+

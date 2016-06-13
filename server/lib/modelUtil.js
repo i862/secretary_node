@@ -2,9 +2,8 @@
  * Created by menzhongxin on 16/3/23.
  */
 var util = require('util'),
-  _ = require('underscore'),
   dateformat = require('dateformat'),
-  commonUtil = require('./commonUtil');
+  commonUtil = require('./commonUtil').util;
 /**
  *
  * @param val

@@ -3,15 +3,10 @@
  */
 (function(){
   angular.module('secApp.GroupController',[])
-    .controller('GroupController',function($http,$scope,$stateParams,$rootScope){
+    .controller('GroupController',function($http,$scope,$stateParams){
       $scope.current = {
-        type:$stateParams.current,
-        list:[]
-      };
-      $rootScope.current = {
-        group:{
-          type:$stateParams.current
-        }
+        list:[],
+        type:$stateParams.current
       };
       $http({
           method:'get',

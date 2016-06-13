@@ -3,7 +3,7 @@
  */
 
 (function(){
-  angular.module('secApp.CssFitler',[])
+  angular.module('secApp.CssFilter',[])
     .filter('labelClass',function(){
       return function(index){
         var labelClass = ['','label-primary','label-success','label-info','label-warning','label-danger'];

@@ -7,11 +7,9 @@
       $scope.users ={
         title:$stateParams.current,
         count:$stateParams.count,
-        group:$rootScope.current.group.type,
+        group:$stateParams.type,
         list:[]
       };
-      $rootScope.current.group.title = $stateParams.current,
-        $rootScope.current.group.count = $stateParams.count;
       $http({
         method:'get',
         url:'/1/contact/list?group=' + $scope.users.group + '&groupValue=' + $scope.users.title
