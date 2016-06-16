@@ -16,7 +16,7 @@ var contactSchema = new Schema({
   case:{type:Array,set:modelUtil.str2Array}, /*案例*/
   qualifications:{type:Array,set:modelUtil.str2Array}
 },{
-  collection:'contact'
+  collection:'contacts'
 });
 var Contact = db.mongoose.model('Contact', contactSchema);
 Contact.add = function(collection){

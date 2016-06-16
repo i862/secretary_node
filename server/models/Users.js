@@ -4,8 +4,8 @@
 var db = require('../config/db')
   ,Schema = db.mongoose.Schema
   ,modleUtil = require('../lib/modelUtil');
-
 var groupSchema = new Schema({
+  id:{type:String,required:true},
   name:{type:String,required:true}
 });
 var userSchema = new Schema({
@@ -17,11 +17,5 @@ var userSchema = new Schema({
 },{
   collection:'users'
 });
-
-var Users = db.mongoose.model('users',userSchema);
-
-Users.add = function(collection){
-  return new Users(collection).save();
-};
-
-model.exports = Users;
+var User = db.mongoose.model('User',userSchema);
+module.exports = User;

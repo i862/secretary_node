@@ -32,19 +32,17 @@ var projectSchema = new Schema({
   type:{type:Number,required:true},
   partyB:{type:String,required:''},
   address:addressSchema,
-  directors:[userSchema],
+  directors:[userSchema], /*负责人*/
   property:[propertySchema],
-  reviewer:[userSchema],
+  reviewer:[userSchema], /*审核人*/
   status:{type:Number,default:0}, /*状态:0-未完成,1-待审核,2-已审核*/
-  counts:{type:Number,default:0}
+  counts:{type:Number,default:0},
+  isTemplates:{type:Boolean,default:false}
 },{
   collection:'projects'
 });
 
-var Projects = db.mongoose.model('projects',projectSchema);
+var Project = db.mongoose.model('Project',projectSchema);
 
-Projects.add = function(collection){
-  return new Projects(collection).save();
-};
 
-model.exports = Projects;
+module.exports = Project;

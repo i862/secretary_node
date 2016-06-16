@@ -57,8 +57,8 @@ exports.configPaginationQuery = function(query,pageSlice){
  * @param onSuccess
  * @param onErr
  */
-exports.getRequest = function(req,res,check){
-  return _check(res,req.query,check);
+exports.getRequest = function(req,check){
+  return _check(commonUtil.extend({},req.params,req.query,check));
 };
 /**
  * postReq
@@ -68,8 +68,8 @@ exports.getRequest = function(req,res,check){
  * @param onSuccess
  * @param onErr
  */
-exports.postRequest = function(req,res,check){
-  return _check(res,req.body,check);
+exports.postRequest = function(req,check){
+  return _check(commonUtil.extend({},req.params,req.body),check);
 };
 /**
  * putReq == postReq
@@ -78,8 +78,8 @@ exports.postRequest = function(req,res,check){
  * @param check
  * @param onErr
  */
-exports.putRequest = function(req,res,check){
-  return this.postRequest(req,res,check);
+exports.putRequest = function(req,check){
+  return this.postRequest(req,check);
 };
 
 /**
@@ -89,8 +89,8 @@ exports.putRequest = function(req,res,check){
  * @param check
  * @param onErr
  */
-exports.delRequest = function(req,res,check){
-  return this.getRequest(req,res,check);
+exports.delRequest = function(req,check){
+  return this.getRequest(req,check);
 };
 
 /**
@@ -100,20 +100,20 @@ exports.delRequest = function(req,res,check){
  * @param next
  */
 exports.extendApiResponse = function(req,res,next){
-  res.set('Content-Type','application/json;charset=UTF-8');
-
+  //res.set('Content-Type','application/json;charset=UTF-8');
   res.apiOK = function(data){
     res
       .status(200)
       .json(data);
   };
   res.apiERR = function(err){
+    var error;
     if(!err || !err.code)
       error = commonUtil.getErrByCode(1003,err.message);
     else
       error = err;
     res
-      .status(500)
+      .status(error.httpCode||500)
       .json(error);
   };
   next();
@@ -130,7 +130,7 @@ exports.errorhandle = function(err,req,res,next){
  * @param data
  * @param contentType
  */
-var _check = function(res,data,check){
+var _check = function(data,check){
   var must = check.must||[],
     optional = check.optional||[];
   for(var i in must){

@@ -4,10 +4,27 @@
 var util = require('util')
   ,dateformat = require('dateformat')
   ,_ = require('underscore')
-  ,errors = require('../json/ErrorCode');
+  ,errors = require('../json/ErrorCode')
+  ,crypto = require('crypto');
 
 var commonUtil  = _;
 
+/**
+ * 根据secret加密指定str
+ * @param secret
+ * @param data
+ * @returns {*}
+ */
+commonUtil.sign = function(secret,str){
+  if(typeof str !== 'string')
+    throw 'the signed value must be a string';
+  return crypto.createHmac('sha256',secret).update(str).digest('hex');
+};
+
+commonUtil.isObjectId = function(str){
+  var reg = new RegExp('[0-9a-fA-F]{24}','i');
+  return reg.test(str||'');
+};
 /**
  * 判断的值是否存在
  * @param v
@@ -86,12 +103,24 @@ commonUtil.toObject = function(list){
   return rs;
 };
 
+commonUtil.encryptPassword = function(phoneNum,password,isTwoTimes){
+  if(isTwoTimes)
+    return MD5(MD5(phoneNum + password));
+  else
+    return MD5(phoneNum + password);
+};
+
 commonUtil.getErrByCode = function(code){
   var error = errors[code]||errors[1001]
       ,param = arguments[1];
-  if(param){
-      error.msg = error.msg + ':' + param;
-    }
-  return error;
+  return {
+    code:error.code,
+    httpCode:error.httpCode,
+    msg:error.msg + (param?(':'+param):'')
+  };
 };
 exports.util = commonUtil;
+
+var MD5 = function(data){
+  return crypto.createHash('md5').update(data).digest('hex').toUpperCase();
+};
