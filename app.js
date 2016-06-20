@@ -20,7 +20,6 @@ app.use(bodyParser.json({type: 'application/json'}));
 app.use(bodyParser.urlencoded({ extended: false}));
 app.use(logger('dev'));
 app.use(httpUtil.extendApiResponse);
-app.use(serveStatic(__dirname + '/public'));
 
 for(var router in routers){
    app.use(routers[router]);

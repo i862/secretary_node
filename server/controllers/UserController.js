@@ -24,7 +24,7 @@ UserController.prototype.auth = function(req,res){
       if(!current)
         return Promise.reject(commonUtil.getErrByCode(2001)); /*用户不存在*/
       current = JSON.parse(JSON.stringify(current));
-      if(current.password !== commonUtil.encryptPassword(user.phoneNum,user.password,false))
+      if(current.password !== commonUtil.encryptPassword(user.phoneNum,user.password.toUpperCase(),false))
         return Promise.reject(commonUtil.getErrByCode(2002)); /*密码错误*/
       return res.apiOK(current);
     })

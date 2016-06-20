@@ -105,7 +105,7 @@ commonUtil.toObject = function(list){
 
 commonUtil.encryptPassword = function(phoneNum,password,isTwoTimes){
   if(isTwoTimes)
-    return MD5(MD5(phoneNum + password));
+    return MD5(phoneNum + MD5(phoneNum + password));
   else
     return MD5(phoneNum + password);
 };
@@ -124,3 +124,4 @@ exports.util = commonUtil;
 var MD5 = function(data){
   return crypto.createHash('md5').update(data).digest('hex').toUpperCase();
 };
+
