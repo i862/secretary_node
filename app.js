@@ -21,6 +21,9 @@ app.use(bodyParser.urlencoded({ extended: false}));
 app.use(logger('dev'));
 app.use(httpUtil.extendApiResponse);
 
+app.get('/cdn',function(req,res){
+   res.status(200).json({"cdn":"amen"});
+});
 for(var router in routers){
    app.use(routers[router]);
 };
