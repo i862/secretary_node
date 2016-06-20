@@ -15,9 +15,9 @@ var NODE_ENV = process.env.NODE_ENV
     ,MONGODB_HOST : '115.28.45.182'
     ,MONGODB_PORT : '27017'
     ,MONGODB_USER : 'secretary'
-    ,MONGODB_PWD : 'secretary@6102'
+    ,MONGODB_PWD : 'secretary6102'
   }
-  ,MONGODB_CONFIG = (NODE_ENV == 'production'?MONGO_PRO:MONGO_TEST);
+  ,MONGODB_CONFIG = (NODE_ENV == '_test'?MONGO_PRO:MONGO_TEST);
 console.log(NODE_ENV);
 var config = {
   PORT:3000
