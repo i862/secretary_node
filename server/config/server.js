@@ -12,7 +12,7 @@ var NODE_ENV = process.env.NODE_ENV
   }
   ,MONGO_PRO = {
     DB_NAME : 'secretary'
-    ,MONGODB_HOST : '127.0.0.1'
+    ,MONGODB_HOST : '115.28.45.182'
     ,MONGODB_PORT : '27017'
     ,MONGODB_USER : 'secretary'
     ,MONGODB_PWD : 'secretary@6102'

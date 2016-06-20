@@ -2,6 +2,7 @@
  * Created by menzhongxin on 16/3/23.
  */
 var util = require('util')
+  ,Promise = require('promise')
   ,commonUtil = require('./commonUtil').util;
 
 /**

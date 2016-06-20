@@ -3,6 +3,7 @@
  */
 var UserService = require('../services/UserService'),
   httpUtil = require('../lib/httpUtil'),
+  Promise = require('promise'),
   commonUtil = require('../lib/commonUtil').util;
 
 var UserController = function(){};
